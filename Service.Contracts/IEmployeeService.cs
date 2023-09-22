@@ -1,10 +1,15 @@
-﻿using Shared.DataTransferObjects;
+using Shared.DataTransferObjects;
 
 namespace Service.Contracts;
 
-public interface IEmployeeService
+public interface ICompanyService
 {
-    IEnumerable<EmployeeDto> GetEmployees(Guid companyId, bool trackChanges);
-    EmployeeDto GetEmployee(Guid companyId, Guid id, bool trackChanges);
-    EmployeeDto CreateEmployeeForCompany(Guid companyId, EmployeeForCreationDto employeeForCreation, bool trackChanges);
+	Task<IEnumerable<CompanyDto>> GetAllCompaniesAsync(bool trackChanges);
+	Task<CompanyDto> GetCompanyAsync(Guid companyId, bool trackChanges);
+	Task<CompanyDto> CreateCompanyAsync(CompanyForCreationDto company);
+	Task<IEnumerable<CompanyDto>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges);
+	Task<(IEnumerable<CompanyDto> companies, string ids)> CreateCompanyCollectionAsync
+		(IEnumerable<CompanyForCreationDto> companyCollection);
+	Task DeleteCompanyAsync(Guid companyId, bool trackChanges);
+	Task UpdateCompanyAsync(Guid companyid, CompanyForUpdateDto companyForUpdate, bool trackChanges);
 }
